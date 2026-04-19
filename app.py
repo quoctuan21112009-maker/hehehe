@@ -209,59 +209,123 @@ input::placeholder{color:var(--t3)}
 .ie svg{flex-shrink:0;width:14px;height:14px;margin-top:1px}
 
 /* ═══════════════════════════════════════════════
-   PLAYER CARD — FF app style
+   PLAYER CARD — FF split card style
 ═══════════════════════════════════════════════ */
 .card{margin-top:1.1rem;border-radius:var(--rl);border:1px solid var(--bdr2);
   background:var(--bg2);overflow:hidden;animation:fu .22s ease both}
 
-/* hero banner */
+/* ── hero: split left/right ── */
 .hero{
-  position:relative;padding:18px 16px 14px;
-  background:linear-gradient(135deg,#141a30 0%,#1a1f35 60%,#0f1525 100%);
-  border-bottom:1px solid var(--bdr);
+  position:relative;display:flex;align-items:stretch;
+  border-bottom:1px solid var(--bdr);min-height:130px;
 }
-.hero::before{
-  content:'';position:absolute;inset:0;
-  background:radial-gradient(ellipse 80% 100% at 0% 50%,rgba(79,142,247,.08),transparent);
+
+/* LEFT panel — dark game card */
+.hero-left{
+  position:relative;flex-shrink:0;width:38%;
+  background:#070a14;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  padding:16px 10px 20px;gap:6px;overflow:hidden;
+  border-right:1px solid var(--bdr2);
+}
+/* grid texture overlay */
+.hero-left::before{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background-image:
+    linear-gradient(rgba(79,142,247,.04) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(79,142,247,.04) 1px,transparent 1px);
+  background-size:20px 20px;
+}
+/* top accent line */
+.hero-left::after{
+  content:'';position:absolute;top:0;left:10%;right:10%;height:1.5px;
+  background:linear-gradient(90deg,transparent,rgba(79,142,247,.5),transparent);
+}
+/* neon border glow left edge */
+.hero-left-glow{
+  position:absolute;left:0;top:10%;bottom:10%;width:2px;
+  background:linear-gradient(180deg,transparent,#4ade80,transparent);border-radius:2px;
+}
+/* green dot bottom center */
+.hero-dot{
+  position:absolute;bottom:10px;left:50%;transform:translateX(-50%);
+  width:9px;height:9px;border-radius:50%;background:#4ade80;flex-shrink:0;
+  box-shadow:0 0 0 3px rgba(74,222,128,.15),0 0 10px rgba(74,222,128,.3);
+}
+/* avatar box */
+.avatar{
+  width:62px;height:62px;border-radius:10px;flex-shrink:0;
+  background:#0a0d1c;border:1.5px solid rgba(79,142,247,.3);
+  display:flex;align-items:center;justify-content:center;
+  overflow:hidden;position:relative;z-index:1;
+}
+.avatar img{width:100%;height:100%;object-fit:cover;border-radius:8px}
+.av-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;
+  background:linear-gradient(135deg,#0d1428,#111932)}
+.hero-left-name{
+  font-size:.78rem;font-weight:700;color:var(--t1);text-align:center;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
+  max-width:100%;position:relative;z-index:1;letter-spacing:.01em;
+}
+.hero-left-uid{
+  font-family:var(--mono);font-size:.65rem;color:var(--t3);
+  position:relative;z-index:1;
+}
+
+/* RIGHT panel — detail info */
+.hero-right{
+  flex:1;min-width:0;padding:14px 14px 14px 14px;
+  display:flex;flex-direction:column;justify-content:center;gap:6px;
+  background:linear-gradient(135deg,#0e1220 0%,#121828 100%);
+  position:relative;overflow:hidden;
+}
+.hero-right::before{
+  content:'';position:absolute;right:-30px;top:-30px;
+  width:120px;height:120px;border-radius:50%;
+  background:radial-gradient(circle,rgba(79,142,247,.06),transparent 70%);
   pointer-events:none;
 }
-.hero-top{display:flex;align-items:flex-start;gap:12px;position:relative}
-.avatar{
-  width:52px;height:52px;border-radius:10px;flex-shrink:0;
-  background:var(--bg4);border:2px solid var(--bdr2);
-  display:flex;align-items:center;justify-content:center;
-  font-size:22px;font-weight:700;color:var(--acc);font-family:var(--mono);overflow:hidden;
+.hr-name{
+  font-size:clamp(.88rem,2.8vw,1rem);font-weight:700;letter-spacing:-.01em;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;color:var(--t1);
 }
-.avatar img{width:100%;height:100%;object-fit:cover}
-.hero-info{flex:1;min-width:0}
-.player-name{
-  font-size:1.05rem;font-weight:700;letter-spacing:-.01em;
-  white-space:nowrap;overflow:hidden;text-overflow:ellipsis;
-}
-.uid-row{display:flex;align-items:center;gap:8px;margin-top:3px;flex-wrap:wrap}
-.uid-tag{font-family:var(--mono);font-size:11px;color:var(--t2)}
+.hr-badges{display:flex;align-items:center;gap:5px;flex-wrap:wrap}
+.hr-uid{font-family:var(--mono);font-size:.7rem;color:var(--t3);margin-top:1px}
+.hr-sig{font-size:.72rem;color:var(--t2);display:flex;align-items:center;gap:5px}
+.hr-sig svg{width:11px;height:11px;flex-shrink:0;color:var(--t3)}
+.hr-meta{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.hr-meta-item{display:flex;align-items:center;gap:4px;font-size:.69rem;color:var(--t3)}
+.hr-meta-item svg{width:10px;height:10px;flex-shrink:0}
+.hr-meta-sep{color:var(--bdr3);font-size:.65rem}
+
 .level-tag{
   font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
-  background:var(--gold2);color:var(--gold);border:1px solid rgba(245,158,11,.25);
-  padding:1px 8px;border-radius:100px;
+  background:rgba(139,92,246,.2);color:#a78bfa;border:1px solid rgba(139,92,246,.3);
+  padding:2px 8px;border-radius:5px;
 }
-.badges-row{display:flex;gap:6px;margin-top:8px;flex-wrap:wrap}
 .pill{
   display:inline-flex;align-items:center;gap:4px;
-  padding:3px 9px;border-radius:100px;font-size:11px;font-weight:600;letter-spacing:.03em;
+  padding:2px 9px;border-radius:5px;font-size:10.5px;font-weight:600;letter-spacing:.03em;
   border:1px solid var(--bdr2);background:var(--bg3);color:var(--t2);
 }
 .pill.online{background:var(--ok2);color:var(--ok);border-color:rgba(74,222,128,.2)}
 .pill svg{width:10px;height:10px}
-.dot{width:6px;height:6px;border-radius:50%;background:var(--ok);flex-shrink:0}
+.dot{width:5px;height:5px;border-radius:50%;background:var(--ok);flex-shrink:0}
 
 /* outfit image */
 .outfit-wrap{
-  margin-top:12px;border-radius:var(--r);overflow:hidden;
-  background:var(--bg);border:1px solid var(--bdr);
+  background:linear-gradient(180deg,#05080f 0%,#0a0e1a 100%);
   min-height:100px;display:flex;align-items:center;justify-content:center;
+  border-top:1px solid var(--bdr);position:relative;overflow:hidden;
 }
-.outfit-wrap img{width:100%;display:block;max-height:320px;object-fit:contain}
+.outfit-wrap::before{
+  content:'';position:absolute;inset:0;pointer-events:none;
+  background-image:
+    linear-gradient(rgba(79,142,247,.025) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(79,142,247,.025) 1px,transparent 1px);
+  background-size:24px 24px;
+}
+.outfit-wrap img{width:100%;display:block;max-height:300px;object-fit:contain;position:relative;z-index:1}
 .outfit-loading{font-size:11px;color:var(--t3);padding:24px;text-align:center}
 
 /* ── Sections ── */
@@ -290,18 +354,19 @@ input::placeholder{color:var(--t3)}
 /* rank badge */
 .rank-badge{
   display:inline-flex;align-items:center;gap:5px;
-  padding:3px 10px;border-radius:6px;font-size:11.5px;font-weight:700;
+  padding:2px 9px;border-radius:5px;font-size:11px;font-weight:700;
   letter-spacing:.02em;font-family:var(--sans);
 }
-.rank-bronze  {background:rgba(180,115,80,.15);color:#cd7f32;border:1px solid rgba(180,115,80,.3)}
-.rank-silver  {background:rgba(180,180,180,.1);color:#b0b8c8;border:1px solid rgba(180,180,180,.25)}
-.rank-gold    {background:var(--gold2);color:var(--gold);border:1px solid rgba(245,158,11,.3)}
-.rank-platinum{background:rgba(96,165,250,.1);color:#60a5fa;border:1px solid rgba(96,165,250,.25)}
-.rank-diamond {background:rgba(147,51,234,.12);color:#c084fc;border:1px solid rgba(147,51,234,.28)}
-.rank-heroic  {background:rgba(239,68,68,.12);color:#f87171;border:1px solid rgba(239,68,68,.28)}
-.rank-master  {background:rgba(251,146,60,.12);color:#fb923c;border:1px solid rgba(251,146,60,.28)}
-.rank-grand   {background:rgba(250,204,21,.12);color:#facc15;border:1px solid rgba(250,204,21,.3)}
-.rank-none    {background:var(--bg4);color:var(--t3);border:1px solid var(--bdr)}
+.rank-stars{display:inline-flex;gap:1px;align-items:center;line-height:1}
+.rank-bronze  {background:rgba(180,115,80,.18);color:#cd7f32;border:1px solid rgba(180,115,80,.35)}
+.rank-silver  {background:rgba(180,180,180,.1); color:#b0b8c8;border:1px solid rgba(180,180,180,.25)}
+.rank-gold    {background:var(--gold2);          color:var(--gold);border:1px solid rgba(245,158,11,.3)}
+.rank-platinum{background:rgba(96,165,250,.1);   color:#60a5fa;border:1px solid rgba(96,165,250,.25)}
+.rank-diamond {background:rgba(147,51,234,.12);  color:#c084fc;border:1px solid rgba(147,51,234,.28)}
+.rank-heroic  {background:rgba(239,68,68,.12);   color:#f87171;border:1px solid rgba(239,68,68,.28)}
+.rank-master  {background:rgba(251,146,60,.12);  color:#fb923c;border:1px solid rgba(251,146,60,.28)}
+.rank-grand   {background:rgba(250,204,21,.12);  color:#facc15;border:1px solid rgba(250,204,21,.3)}
+.rank-none    {background:var(--bg4);            color:var(--t3);border:1px solid var(--bdr)}
 
 /* stat grid */
 .stat-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--bdr);border-top:1px solid var(--bdr)}
@@ -409,7 +474,7 @@ footer a{color:var(--acc);text-decoration:none}
   </div>
 </main>
 
-<footer>Bản quyền thuộc về DNS &nbsp;·&nbsp; <a href="/health" target="_blank">API Status</a> &nbsp;·&nbsp; Quốc Tuấn</footer>
+<footer>Flask + Python &nbsp;·&nbsp; <a href="/health" target="_blank">API Status</a> &nbsp;·&nbsp; by THUG</footer>
 
 <script>
 // ── TABS ─────────────────────────────────────────────────────────────────────
@@ -441,28 +506,67 @@ function secHead(icon,title){
 }
 
 // ── RANK MAPPING ──────────────────────────────────────────────────────────────
-// BR & CS share same tier names/thresholds
-const RANK_TIERS = [
-  {min:0,    max:1299,  cls:'rank-bronze',   vi:'Đồng',        en:'Bronze'},
-  {min:1300, max:1599,  cls:'rank-silver',   vi:'Bạc',         en:'Silver'},
-  {min:1600, max:2099,  cls:'rank-gold',     vi:'Vàng',        en:'Gold'},
-  {min:2100, max:2599,  cls:'rank-platinum', vi:'Bạch kim',    en:'Platinum'},
-  {min:2600, max:3124,  cls:'rank-diamond',  vi:'Kim cương',   en:'Diamond'},
-  {min:3125, max:3599,  cls:'rank-heroic',   vi:'Huyền thoại', en:'Heroic'},
-  {min:3600, max:3999,  cls:'rank-master',   vi:'Cao thủ',     en:'Master'},
-  {min:4000, max:99999, cls:'rank-grand',    vi:'Thách đấu',   en:'Grandmaster'},
+// BR rank: sub-ranks dùng số La Mã (I, II, III, IV)
+// CS rank: sub-ranks dùng số sao (1★ 2★ 3★ 4★)
+const BR_TIERS = [
+  {cls:'rank-bronze',   vi:'Đồng',       color:'#CD7F32', subs:['I','II','III'],      pts:[0,100,200]},
+  {cls:'rank-silver',   vi:'Bạc',        color:'#A8B8C8', subs:['I','II','III'],      pts:[300,400,500]},
+  {cls:'rank-gold',     vi:'Vàng',       color:'#E8A000', subs:['I','II','III','IV'], pts:[600,800,1000,1200]},
+  {cls:'rank-platinum', vi:'Bạch Kim',   color:'#60A5FA', subs:['I','II','III','IV'], pts:[1400,1700,2000,2300]},
+  {cls:'rank-diamond',  vi:'Kim Cương',  color:'#C084FC', subs:['I','II','III','IV'], pts:[2600,3000,3400,3800]},
+  {cls:'rank-heroic',   vi:'Anh Hùng',  color:'#F87171', subs:[],                    pts:[4200]},
+  {cls:'rank-master',   vi:'Cao Thủ',   color:'#FB923C', subs:[],                    pts:[5000]},
+  {cls:'rank-grand',    vi:'Thách Đấu', color:'#FACC15', subs:[],                    pts:[6000]},
+];
+const CS_TIERS = [
+  {cls:'rank-bronze',   vi:'Đồng',       color:'#CD7F32', stars:3, pts:[0,50,100]},
+  {cls:'rank-silver',   vi:'Bạc',        color:'#A8B8C8', stars:3, pts:[150,200,250]},
+  {cls:'rank-gold',     vi:'Vàng',       color:'#E8A000', stars:4, pts:[300,400,500,600]},
+  {cls:'rank-platinum', vi:'Bạch Kim',   color:'#60A5FA', stars:4, pts:[700,850,1000,1150]},
+  {cls:'rank-diamond',  vi:'Kim Cương',  color:'#C084FC', stars:4, pts:[1300,1500,1700,1900]},
+  {cls:'rank-heroic',   vi:'Anh Hùng',  color:'#F87171', stars:0, pts:[2100]},
+  {cls:'rank-master',   vi:'Cao Thủ',   color:'#FB923C', stars:0, pts:[2500]},
+  {cls:'rank-grand',    vi:'Thách Đấu', color:'#FACC15', stars:0, pts:[3000]},
 ];
 
+function getBRRank(pts){
+  pts=parseInt(pts)||0;
+  let tier=BR_TIERS[0],sub=0;
+  for(const t of BR_TIERS){if(pts>=t.pts[0]){tier=t;sub=0;for(let i=0;i<t.pts.length;i++){if(pts>=t.pts[i])sub=i;}}}
+  return{tier,sub};
+}
+function getCSRank(pts){
+  pts=parseInt(pts)||0;
+  let tier=CS_TIERS[0],sub=0;
+  for(const t of CS_TIERS){if(pts>=t.pts[0]){tier=t;sub=0;for(let i=0;i<t.pts.length;i++){if(pts>=t.pts[i])sub=i;}}}
+  return{tier,sub};
+}
+
+// BR badge: "Đồng I" / "Vàng III" / "Anh Hùng"
 function rankBadge(pts, mode){
-  if(!pts && pts!==0) return`<span class="rank-badge rank-none">—</span>`;
-  const p=parseInt(pts)||0;
-  const t=RANK_TIERS.find(r=>p>=r.min&&p<=r.max)||RANK_TIERS[0];
-  const icons={
-    'rank-bronze':'🥉','rank-silver':'🥈','rank-gold':'🥇',
-    'rank-platinum':'💎','rank-diamond':'💎','rank-heroic':'🔥',
-    'rank-master':'👑','rank-grand':'🏆'
-  };
-  return`<span class="rank-badge ${t.cls}">${icons[t.cls]||''} ${t.vi} · ${fmt(p)} điểm</span>`;
+  if(mode==='cs') return csBadge(pts);
+  return brBadge(pts);
+}
+function brBadge(pts){
+  if(pts==null||pts==='') return`<span class="rank-badge rank-none">Chưa xếp hạng</span>`;
+  const{tier,sub}=getBRRank(pts);
+  const label=tier.subs.length>0?`${tier.vi} ${tier.subs[sub]||tier.subs[0]}`:tier.vi;
+  return`<span class="rank-badge ${tier.cls}">${label}</span>`;
+}
+
+// CS badge: "Đồng" + filled/empty stars matching sub-rank count
+function csBadge(pts){
+  if(pts==null||pts==='') return`<span class="rank-badge rank-none">Chưa xếp hạng</span>`;
+  const{tier,sub}=getCSRank(pts);
+  let stars='';
+  if(tier.stars>0){
+    const filled=sub+1; // sub is 0-based index, so +1 = number of filled stars
+    stars='<span class="rank-stars">'+
+      Array.from({length:tier.stars},(_,i)=>
+        `<svg width="13" height="13" viewBox="0 0 24 24" style="flex-shrink:0;fill:${i<filled?tier.color:'rgba(255,255,255,.15)'}"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>`
+      ).join('')+'</span>';
+  }
+  return`<span class="rank-badge ${tier.cls}">${tier.vi}${stars?' '+stars:''}</span>`;
 }
 
 const IC = {
@@ -490,32 +594,51 @@ async function doInfo(){
     const b=d.basicInfo||{}, cl=d.clanBasicInfo||{}, ca=d.captainBasicInfo||{},
           pt=d.petInfo||{},   cr=d.creditScoreInfo||{}, so=d.socialInfo||{};
 
-    // Avatar initials from nickname
+    // Avatar: load real game icon from headPic ID
     const nick=b.nickname||uid;
-    const initials=nick.slice(0,2).toUpperCase();
+    const headPicId=b.headPic||b.avatar||b.avatarId||null;
+    const avatarId=headPicId;
 
     // region pill
     const region=b.region||'';
 
     let h=`<div class="card">
       <div class="hero">
-        <div class="hero-top">
-          <div class="avatar" id="av-${uid}">${initials}</div>
-          <div class="hero-info">
-            <div class="player-name">${nick}</div>
-            <div class="uid-row">
-              <span class="uid-tag">UID: ${uid}</span>
-              <span class="level-tag">Lv. ${b.level||'?'}</span>
-            </div>
-            <div class="badges-row">
-              <span class="pill online"><span class="dot"></span>Online</span>
-              ${region?`<span class="pill"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" style="width:10px;height:10px"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>${region}</span>`:''}
+        <!-- LEFT: game card panel -->
+        <div class="hero-left">
+          <div class="hero-left-glow"></div>
+          <div class="avatar" id="av-${uid}">
+            <div class="av-placeholder">
+              <svg viewBox="0 0 40 40" fill="none" style="width:34px;height:34px;opacity:.5">
+                <circle cx="20" cy="14" r="7" fill="#4f8ef7"/>
+                <path d="M6 36c0-7.7 6.3-14 14-14s14 6.3 14 14" stroke="#4f8ef7" stroke-width="2.5" stroke-linecap="round"/>
+              </svg>
             </div>
           </div>
+          <div class="hero-left-name">${nick}</div>
+          <div class="hero-left-uid">UID: ${uid}</div>
+          <div class="hero-dot"></div>
         </div>
-        <div class="outfit-wrap" id="outfit-${uid}">
-          <div class="outfit-loading">Đang tải trang phục...</div>
+        <!-- RIGHT: detail info panel -->
+        <div class="hero-right">
+          <div class="hr-name">${nick}</div>
+          <div class="hr-badges">
+            ${brBadge(b.rankingPoints)}
+            <span class="level-tag">LV.${b.level||'?'}</span>
+          </div>
+          <div class="hr-uid">UID: ${uid}</div>
+          ${so.signature?`<div class="hr-sig"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>${so.signature}</div>`:''}
+          <div class="hr-meta">
+            ${region?`<span class="hr-meta-item"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/></svg>Khu vực: ${region}</span>`:''}
+            ${region&&cl.clanName?`<span class="hr-meta-sep">|</span>`:''}
+            <span class="hr-meta-item"><svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/></svg># Guild: ${cl.clanName||'—'}</span>
+          </div>
         </div>
+      </div>
+
+      <!-- outfit image below hero -->
+      <div class="outfit-wrap" id="outfit-${uid}">
+        <div class="outfit-loading">Đang tải trang phục...</div>
       </div>
 
       <div class="stat-grid">
@@ -535,14 +658,13 @@ async function doInfo(){
 
       ${secHead(IC.shield,'Sinh tồn — Xếp hạng')}
       <div class="rows">
-        ${row('Hạng hiện tại',rankBadge(b.rankingPoints,'br'))}
-        ${row('Điểm',fmt(b.rankingPoints))}
+        ${row('Hạng hiện tại',brBadge(b.rankingPoints))}
+        ${row('Điểm BR',fmt(b.rankingPoints))}
       </div>
 
       ${secHead(IC.sword,'Tử chiến — Xếp hạng')}
       <div class="rows">
-        ${row('Hạng hiện tại',rankBadge(b.csRankingPoints,'cs'))}
-        ${row('Điểm',fmt(b.csRankingPoints))}
+        ${row('Hạng hiện tại',csBadge(b.csRankingPoints))}
       </div>`;
 
     if(cl.clanName){
@@ -560,8 +682,8 @@ async function doInfo(){
           ${row('Nickname',ca.nickname)}
           ${row('UID',code(ca.accountId||'—'))}
           ${row('Cấp độ',`Lv. ${ca.level||'?'}`)}
-          ${row('Sinh tồn',rankBadge(ca.rankingPoints,'br'))}
-          ${row('Tử chiến',rankBadge(ca.csRankingPoints,'cs'))}
+          ${row('Sinh tồn',brBadge(ca.rankingPoints))}
+          ${row('Tử chiến',csBadge(ca.csRankingPoints))}
           ${row('Đăng nhập cuối',ts(ca.lastLoginAt))}
         </div>`;
       }
@@ -579,11 +701,48 @@ async function doInfo(){
     h+=`</div>`;
     out.innerHTML=h;
 
-    // Load outfit image async
+    // Load images async
+    loadAvatar(uid, avatarId);
     loadOutfit(uid);
 
   }catch(e){out.innerHTML=errHtml('Không kết nối được máy chủ.')}
   finally{busy('btn-info',false)}
+}
+
+// Try multiple CDN URLs for the game avatar icon
+async function loadAvatar(uid, picId){
+  const el=document.getElementById('av-'+uid);
+  if(!el) return;
+  if(!picId){return;} // keep placeholder
+
+  // Free Fire CDN URL candidates for headPic
+  const candidates=[
+    `https://dl.dir.freefiremobile.com/common/web_event/official2.0/images/${picId}.png`,
+    `https://dl.dir.freefiremobile.com/common/web_event/official2.0/images/${picId}.jpg`,
+    `https://cdn.ff.garena.com/assets/item/icon/${picId}.png`,
+    `https://www.assets.garena.com/free-fire/icon/${picId}.png`,
+  ];
+
+  for(const url of candidates){
+    try{
+      const ok=await new Promise(res=>{
+        const img=new Image();
+        img.onload=()=>res(true);
+        img.onerror=()=>res(false);
+        img.src=url;
+      });
+      if(ok){
+        el.innerHTML='';
+        const img=document.createElement('img');
+        img.src=url;
+        img.alt='avatar';
+        img.style.cssText='width:100%;height:100%;object-fit:cover;border-radius:8px';
+        el.appendChild(img);
+        return;
+      }
+    }catch{}
+  }
+  // All failed — keep SVG placeholder, do nothing
 }
 
 async function loadOutfit(uid){
