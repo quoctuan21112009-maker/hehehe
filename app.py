@@ -412,7 +412,7 @@ footer a{color:var(--acc);text-decoration:none}
 <header>
   <div class="logo-row"><span class="logo-badge">Free Fire Utilities</span></div>
   <h1>FF <em>Tools</em></h1>
-  <p class="sub">Tra cứu · Kiểm tra ban · Tăng likes</p>
+  <p class="sub">Info Acc · Check ban · Tăng likes( đăng thử nghiệm)</p>
 </header>
 
 <main>
@@ -474,7 +474,7 @@ footer a{color:var(--acc);text-decoration:none}
   </div>
 </main>
 
-<footer>Flask + Python &nbsp;·&nbsp; <a href="/health" target="_blank">API Status</a> &nbsp;·&nbsp; by THUG</footer>
+<footer>Bản quyền thuộc về DNS &nbsp;·&nbsp; <a href="/health" target="_blank">API Status</a> &nbsp;·&nbsp; FB:quoc tuan(qt)</footer>
 
 <script>
 // ── TABS ─────────────────────────────────────────────────────────────────────
